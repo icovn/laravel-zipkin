@@ -1,6 +1,6 @@
 {
-    "name": "mts88/laravel-zipkin",
-    "version": "1.0.3",
+    "name": "icovn/laravel-zipkin",
+    "version": "1.0.0",
     "type": "library",
     "description": "Zipkin Library for Laravel.",
     "keywords": [
@@ -20,12 +20,12 @@
     "license": "MIT",
     "require": {
         "php": "^7.1",
-        "openzipkin/zipkin": "^1.3.4"
+        "openzipkin/zipkin": "^1.3.6"
     },
     "authors": [
         {
-            "name": "Francesca Motisi",
-            "email": "fsca.motisi@gmail.com",
+            "name": "Nguyen Quang Huy",
+            "email": "quanghuy.ico@gmail.com",
             "role": "Developer"
         }
     ],

@@ -5,6 +5,7 @@ namespace Mts88\LaravelZipkin\Middlewares;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Mts88\LaravelZipkin\Services\ZipkinService;
+use Zipkin\Propagation\Map;
 
 class ZipkinRequestLogger
 {
@@ -26,14 +27,24 @@ class ZipkinRequestLogger
     {
 
         if (in_array($request->method(), $this->zipkinService->getAllowedMethods())) {
+            // create tracing
+            $tracing = $this->zipkinService->createTracing($request->route()->getName(), $request->ip());
 
-            $this->zipkinService->setTracer($request->route()->getName(), $request->ip());
+            // extract the context from HTTP headers
+            $extractor = $tracing->getPropagation()->getExtractor(new Map());
+            $carrier = array_map(function ($header) {
+                return $header[0];
+            }, $request->headers->all());
+            $extractedContext = $extractor($carrier);
 
-            foreach ($request->query() as $key => $value) {
-                $tags["query." . $key] = $value;
-            }
+            // create root span
+            $tracer = $tracing->getTracer();
+            $span = $tracer->nextSpan($extractedContext);
+            $span->start(\Zipkin\Timestamp\now());
+            $span->setName($request->getUri());
 
-            $this->zipkinService->createRootSpan('incoming_request', ($tags ?? []))
+            // set root span
+            $this->zipkinService->setRootSpan($span)
                 ->setRootSpanMethod($request->method())
                 ->setRootSpanPath($request->path())
                 ->setRootAuthUser(Auth::user())

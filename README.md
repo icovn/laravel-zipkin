@@ -1,6 +1,6 @@
 
   
-# Laravel MongoDB GridFS
+# Laravel Zipkin
 
 [![Latest Stable Version](https://poser.pugx.org/mts88/laravel-zipkin/v/stable)](https://packagist.org/packages/mts88/laravel-zipkin)
 [![Total Downloads](https://poser.pugx.org/mts88/laravel-zipkin/downloads)](https://packagist.org/packages/mts88/laravel-zipkin)

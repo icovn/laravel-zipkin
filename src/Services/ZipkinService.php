@@ -46,6 +46,12 @@ class ZipkinService
         return $this;
     }
 
+    public function setTracerCustom($tracer)
+    {
+        $this->tracer = $tracer;
+        return $this;
+    }
+
     public function getTracer(): ?Tracer
     {
         return $this->tracer;
