@@ -50,6 +50,9 @@ class ZipkinRequestLogger
                 ->setRootAuthUser(Auth::user())
                 ->setRootSpanTag('request.headers', json_encode($request->headers->all()))
                 ->setRootSpanTag('request.body', json_encode($request->all()));
+
+            // set tracer
+            $this->zipkinService->setTracerCustom($tracer);
         }
 
         return $next($request);
