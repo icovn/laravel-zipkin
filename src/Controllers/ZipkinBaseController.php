@@ -7,10 +7,12 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Mts88\LaravelZipkin\Services\ZipkinService;
+use Zipkin\Propagation\Map;
 use Zipkin\Timestamp;
 
 class ZipkinBaseController extends Controller
 {
+    protected $tracing;
     private $span;
     public $zipkinService;
 
@@ -29,8 +31,8 @@ class ZipkinBaseController extends Controller
         $classCaller = get_called_class();
         $className   = Arr::last(explode("\\", $classCaller));
 
-        $tracing = $this->zipkinService->createTracing($className, Request::getClientip());
-        $tracer  = $tracing->getTracer();
+        $this->tracing = $this->zipkinService->createTracing($className, Request::getClientip());
+        $tracer  = $this->tracing->getTracer();
 
         $this->span = $tracer->nextSpan($this->zipkinService->getRootSpanContext());
         $this->span->annotate("Start", Timestamp\now());
@@ -47,6 +49,14 @@ class ZipkinBaseController extends Controller
         $tracer->flush();
 
         return $action;
+    }
+
+    public function getContextHeaders()
+    {
+        $headers = [];
+        $injector = $this->tracing->getPropagation()->getInjector(new Map());
+        $injector($this->span->getContext(), $headers);
+        return $headers;
     }
 
     public function __destruct()

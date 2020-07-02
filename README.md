@@ -2,9 +2,9 @@
   
 # Laravel Zipkin
 
-[![Latest Stable Version](https://poser.pugx.org/mts88/laravel-zipkin/v/stable)](https://packagist.org/packages/mts88/laravel-zipkin)
-[![Total Downloads](https://poser.pugx.org/mts88/laravel-zipkin/downloads)](https://packagist.org/packages/mts88/laravel-zipkin)
-[![License](https://poser.pugx.org/mts88/laravel-zipkin/license)](https://packagist.org/packages/mts88/laravel-zipkin)
+[![Latest Stable Version](https://poser.pugx.org/icovn/laravel-zipkin/v/stable)](https://packagist.org/packages/icovn/laravel-zipkin)
+[![Total Downloads](https://poser.pugx.org/icovn/laravel-zipkin/downloads)](https://packagist.org/packages/icovn/laravel-zipkin)
+[![License](https://poser.pugx.org/icovns/laravel-zipkin/license)](https://packagist.org/packages/icovn/laravel-zipkin)
 
 A library wants to help the use Openzipkin for Laravel. 
 
