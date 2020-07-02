@@ -1,6 +1,6 @@
 {
     "name": "icovn/laravel-zipkin",
-    "version": "1.0.3.2",
+    "version": "1.0.3.3",
     "type": "library",
     "description": "Zipkin Library for Laravel.",
     "keywords": [
